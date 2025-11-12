@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+/* === 全局设置 === */
+html {
+  scroll-behavior: smooth;
+}
+section {
+  scroll-margin-top: 4rem; 
+}
+
+
+/* === 滚动动画核心样式 (基于 CSS 变量) === */
+.animate-on-scroll {
+  --opacity: 0;
+  --transform: translateY(30px);
+
+  opacity: var(--opacity);
+  transform: var(--transform);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.is-visible {
+  --opacity: 1;
+  --transform: translateY(0);
+}
+
+
+/* === 特殊状态覆盖 === */
+.force-visible {
+  --opacity: 1;
+  --transform: translateY(0);
+}
+.force-hidden {
+  --opacity: 0;
+  --transform: translateY(30px);
+}
+
+
+/* === 复制成功气泡样式 === */
+.copy-toast {
+  position: fixed;
+  padding: 0.5rem 1rem;
+  background-color: #2a323c;
+  color: #a6adbb;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  animation: mario-coin-animation 1.5s ease-out forwards;
+}
+@keyframes mario-coin-animation {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -60px);
+    opacity: 0;
+  }
+}
+
+.custom-list {
+  /* 移除默认的列表样式 (圆点) */
+  list-style: none;
+  padding-left: 0;
+}
+
+.custom-list li {
+  /* 使用 Flexbox 来对齐图标和文本 */
+  @apply flex items-start;
+}
+
+.custom-list .list-icon {
+  /* 设置图标的样式 */
+  @apply mr-3 text-primary shrink-0; /* mr-3: 右边距, text-primary: 主题色, shrink-0: 防止图标被压缩 */
+  margin-top: 0.125rem; /* 微调图标的垂直位置，使其与文本更对齐 */
+}
+
+
